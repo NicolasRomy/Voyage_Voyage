@@ -5,3 +5,4 @@
   require_once "action/config.php";
 ?>
 Welcome <?php echo $_POST["country"]; ?><br>
+
