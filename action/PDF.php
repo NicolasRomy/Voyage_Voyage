@@ -18,7 +18,7 @@
     $data .=  "<img src = $image> <br>";
     $data .=  $article["content"] . "<br>";
     $data .=  $article["Publiacation_date"] . "<br>";
-    $data .=  $article["Article_content_date"] . "<br>";;
+    $data .=  $article["Article_content_date"] . "<br>";
 
     $mpdf->WriteHtml($data);
     $mpdf->output("myfile.pdf","D");   
