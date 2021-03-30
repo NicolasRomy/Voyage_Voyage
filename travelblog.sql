@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 30 mars 2021 à 12:13
--- Version du serveur :  8.0.23
--- Version de PHP : 8.0.3
+-- Généré le : mar. 30 mars 2021 à 16:31
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
-  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `PSEUDO` tinytext NOT NULL,
   `PASSWORD` tinytext NOT NULL,
   PRIMARY KEY (`ID`)
@@ -51,15 +51,23 @@ INSERT INTO `admin` (`ID`, `PSEUDO`, `PASSWORD`) VALUES
 
 DROP TABLE IF EXISTS `articles`;
 CREATE TABLE IF NOT EXISTS `articles` (
-  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Title` text NOT NULL,
-  `Image` int NOT NULL,
+  `Image` text NOT NULL,
+  `Content` text NOT NULL,
   `Publication_date` datetime NOT NULL,
-  `Article_content_date` int NOT NULL,
-  `country_ID` int NOT NULL,
+  `Article_content_date` datetime NOT NULL,
+  `country_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Country` (`country_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `articles`
+--
+
+INSERT INTO `articles` (`ID`, `Title`, `Image`, `Content`, `Publication_date`, `Article_content_date`, `country_ID`) VALUES
+(1, 'A DAY IN INDIA', 'https://miro.medium.com/max/700/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg', 'YESTERDAY I WEN TO INDIA', '2021-03-30 18:25:41', '2021-03-29 18:25:41', 7);
 
 -- --------------------------------------------------------
 
@@ -69,11 +77,11 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
-  `ID` int NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `DATE` datetime NOT NULL,
   `Pseudo` tinytext NOT NULL,
-  `Content` int NOT NULL,
-  `article_ID` int NOT NULL,
+  `Content` int(11) NOT NULL,
+  `article_ID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `article_ID` (`article_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 DROP TABLE IF EXISTS `countries`;
 CREATE TABLE IF NOT EXISTS `countries` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `ADMIN_ID` int NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ADMIN_ID` int(11) NOT NULL,
   `Name` tinytext NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Admin_ID` (`ADMIN_ID`)
@@ -116,7 +124,7 @@ ALTER TABLE `articles`
 -- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `article_ID` FOREIGN KEY (`article_ID`) REFERENCES `articles` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `article_ID` FOREIGN KEY (`article_ID`) REFERENCES `articles` (`ID`);
 
 --
 -- Contraintes pour la table `countries`
