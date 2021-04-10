@@ -1,6 +1,7 @@
 <?php 
   session_start();
   $_SESSION;
+  //login page
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,7 @@
 
       <section>
         <?php
+          //condition to offer either connection or send back to welcome page
           if(isset($_SESSION['user'])){
             header('Location:accueil.php');
           } else {
